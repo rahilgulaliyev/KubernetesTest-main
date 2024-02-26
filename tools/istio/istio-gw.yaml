@@ -1,0 +1,17 @@
+apiVersion: flux.weave.works/v1
+kind: HelmRelease
+metadata:
+  name: istio-ingress
+  namespace: istio-system
+spec:
+  releaseName: istio-ingress
+  chart:
+    repository: https://charts.helm.sh/stable
+    name: istio-ingress
+    version: 1.20.0
+
+  dependsOn:
+    - name: istio-base
+      kind: HelmRelease
+    - name: istiod
+      kind: HelmRelease

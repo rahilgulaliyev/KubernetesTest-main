@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: my-app
+  template:
+    metadata:
+      labels:
+        app: my-app
+    spec:
+      containers:
+      - name: my-app
+        image: my-app-image
+        ports:
+        - containerPort: 8080
+        env:
+        - name: ENABLE_CONFIG_FILE
+          value: "/app/kpf/enable-config"
+        volumeMounts:
+        - name: config-volume
+          mountPath: /app/kpf/enable-config
+      volumes:
+      - name: config-volume
+        configMap:
+          name: app-config
+          items:
+          - key: Cleverbit__Enabled
+            path: enable

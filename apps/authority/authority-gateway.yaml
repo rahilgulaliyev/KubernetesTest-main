@@ -1,0 +1,16 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: authority-gateway
+  namespace: authority
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+  - hosts:
+    - authority.cb-interview.com
+    port:
+      name: http
+      number: 80
+      protocol: HTTP
+

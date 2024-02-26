@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: servicex-deployment
+  namespace: servicex
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: servicex
+  template:
+    metadata:
+      labels:
+        app: servicex
+    spec:
+      containers:
+      - name: servicex
+        image: s2s
+        ports:
+        - containerPort: 8080
+        volumeMounts:
+        - name: secret-volume
+          mountPath: /app/kpf/secret
+          readOnly: true
+      volumes:
+      - name: secret-volume
+        secret:
+          secretName: servicex-secret
+
